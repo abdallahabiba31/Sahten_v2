@@ -1,0 +1,21 @@
+#searchBar::placeholder {
+    color: var(--main-color);
+    font-family: Arial, FontAwesome;
+}
+
+#searchBar {
+    border: 0px;
+    border-radius: 100px;
+    margin: 10px auto;
+    display: block;
+    padding: 11px 31px;
+    background-color: rgb(217, 225, 213);
+    /* width: 600px; */
+    width: 45%;
+    margin-top: 20px;
+}
+
+#searchBar:focus {
+    outline: none;
+    outline-color: var(--main-color);
+}
