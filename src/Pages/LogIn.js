@@ -45,11 +45,11 @@ function LogIn() {
       });
   };
   return (
-    <div class="logIn">
+    <div className="logIn">
       <Navbar isLoggedIn={isLoggedIn} />
       <div className="loginbox">
-        <div class="pic">
-          <i class="fas fa-user"></i>
+        <div className="pic">
+          <i className="fas fa-user"></i>
         </div>
         <h1>Login here</h1>
         <form onSubmit={handleSubmit}>

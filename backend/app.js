@@ -32,8 +32,10 @@ let users = [
 ];
 
 
-app.get('/items', async function (req, res) {
+//async?
+app.get('/items', function (req, res) {
     console.log('Received GET request to /items');  // This will print to the terminal
+    console.log(items);
     res.json(items);
     //res.send();
 });
@@ -42,7 +44,8 @@ app.post('/items', async (req, res) => {
     const newItem = req.body;
     newItem.id = ID;
     ID += 1;
-    items.push(newItem);
+    items.push(newItem.id, newItem);
+    console.log(items);
     res.status(201).json(newItem);
 });
 
@@ -61,7 +64,6 @@ app.delete('/items/:id', async (req, res) => {
 });
 
 let nextUserId = 5;
-let isLoggedIn = false;
 
 
 app.post('/login', async (req, res) => {
@@ -83,10 +85,11 @@ app.post('/login', async (req, res) => {
 app.post("/register", async (req, res) => {
     const { username, password } = req.body;
     const userId = nextUserId++;
-    const newUser = { userId, username, password }
+    const newUser = {id: userId, username: username, password: password }
+
 
     console.log(userId, username, password)
-    users.push(userId, username, password);
+    users.push(newUser);
     console.log(users);
 
     const accessToken = jwt.sign({ id: newUser.id, name: newUser.username }, 'your_secret_key')
@@ -95,16 +98,6 @@ app.post("/register", async (req, res) => {
     //res.status(201).json(newUser);
 });
 
-app.post('/logout', async (req, res) => {
-    const userId = req.body.userId;
-    if(req.user.id ===  userId){
-        res.status(200).json("User logout");
-    }else{
-        res.status(403).json("not log out");
-    }
-
-    res.json({ message: 'Logout erfolgreich' });
-});
 
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
