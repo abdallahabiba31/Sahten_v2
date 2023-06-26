@@ -50,7 +50,7 @@ function ShoppingList() {
         return window.location.href = '/';
       } */
     return (
-        <div class="shopping">
+        <div className="shopping">
             <Navbar />
             <div className=''>
             <h1>Shopping list</h1>

@@ -8,18 +8,28 @@ import ShoppingList from './components/ShoppingList';
 import Register from './Pages/Register';
 import LogIn from './Pages/LogIn';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
+import { useState } from 'react';
+import PrivateRoutes from "./Router/PrivateRoutes"
 
 function App() {
-return ( 
-  <Router>
-    <Routes>
-      <Route path="/" element={<App2 />} />
-      <Route path="/shopping-list" element={<ShoppingList />} />
-      <Route path="/logIn" element={<LogIn />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
-  </Router>
-);
+
+  const [jwt, setJwt] = useState(localStorage.getItem('accessToken'))
+
+  return (
+    <AuthContext.Provider value={{ jwt, setJwt }}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<App2 />} />
+          <Route path="/logIn" element={<LogIn />} />
+          <Route path="/register" element={<Register />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/shopping-list" element={<ShoppingList />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthContext.Provider>
+  );
 }
 function App2() {
   return (

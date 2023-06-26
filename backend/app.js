@@ -32,9 +32,6 @@ let users = [
 ];
 
 
-// Set up routes
-//middleWearverifyJWT
-//verifyJWT
 app.get('/items', async function (req, res) {
     console.log('Received GET request to /items');  // This will print to the terminal
     res.json(items);
@@ -63,30 +60,9 @@ app.delete('/items/:id', async (req, res) => {
     res.json({ message: 'Item deleted' });
 });
 
-let sessions = [];
 let nextUserId = 5;
-let sessionCount = 1;
 let isLoggedIn = false;
 
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers.authorization;
-
-    if (authHeader) {
-        const token = authHeader.split(' ')[1];
-        jwt.verify(token, 'your_secret_key', (err, user) => {
-            if (err) return res.sendStatus(403).json("Token not valid!");
-            req.user = user;
-            next();
-        });
-    } else {
-        res.sendStatus(401).json("Not authenticated")
-    }
-
-
-}
-app.get('/posts', authenticateToken, (req, res) => {
-    req.json(users.filter(user => user.username === req.user.name))
-})
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
@@ -119,7 +95,7 @@ app.post("/register", async (req, res) => {
     //res.status(201).json(newUser);
 });
 
-app.post('/logout', authenticateToken, async (req, res) => {
+app.post('/logout', async (req, res) => {
     const userId = req.body.userId;
     if(req.user.id ===  userId){
         res.status(200).json("User logout");
