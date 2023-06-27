@@ -11,7 +11,7 @@ function Register() {
     const handleSubmit = async (event) => {
        event.preventDefault();
        if (password.length < 6) {
-        setErrorMessage('The password needs to be at least six characters long.');
+        setErrorMessage('Password or username is incorrect.');
         return;
       }
        await axios.post('http://localhost:5000/register', {
