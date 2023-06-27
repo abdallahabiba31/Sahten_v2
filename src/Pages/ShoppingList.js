@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar/Navbar';
-import "./ShoppingList.css"
+import "../style/ShoppingList.css"
 
 
 function ShoppingList() {
@@ -10,13 +10,20 @@ function ShoppingList() {
     const [updatedName, setUpdatedName] = useState('');   
     const [accessToken, setAccessToken] = useState('');
 
-    useEffect(() => {
-        // Replace with your own backend URL
-        axios.get('http://localhost:5000/items')
-        
-          .then(response => setItems(response.data))
-          .catch(error => console.error(`Error: ${error}`));
-      }, []);
+      
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      await axios.get('http://localhost:5000/items') // Ändern Sie die URL entsprechend Ihren Backend-Endpunkten
+        .then(response => setItems(response.data))
+        .catch(error => console.error(`Error: ${error}`));
+    } catch (error) {
+      console.error(error);
+    }
+  };
     
       const handleSubmit = async event => {
         event.preventDefault();

@@ -4,7 +4,7 @@ import Searchbar from './components/SearchBar/Searchbar';
 import Slider from './components/Slider/Slider';
 import CardGallery from './Pages/CardGallery';
 import RecipeState from './context/RecipeState';
-import ShoppingList from './components/ShoppingList';
+import ShoppingList from './Pages/ShoppingList';
 import Register from './Pages/Register';
 import LogIn from './Pages/LogIn';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';

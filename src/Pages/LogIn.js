@@ -80,7 +80,7 @@ function LogIn() {
 
           </div>
           {errorMessage && <p>{errorMessage}</p>}
-          <br></br>
+          <br/>
           {/* <a className='loginbox__a' href="register.html">Register here</a> */}
 
         </form>

@@ -20,8 +20,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mock data for our "database"
 let items = [
-    { id: 1, name: 'Item 1' },
-    { id: 2, name: 'Item 2' },
+    { id: 1, name: 'Ingredient 1' },
+    { id: 2, name: 'Ingredient 2' },
 ];
 
 // Mock user data
@@ -44,7 +44,7 @@ app.post('/items', async (req, res) => {
     const newItem = req.body;
     newItem.id = ID;
     ID += 1;
-    items.push(newItem.id, newItem);
+    items.push(newItem);
     console.log(items);
     res.status(201).json(newItem);
 });
