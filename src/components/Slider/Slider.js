@@ -6,16 +6,22 @@ const Slider = () => {
   const [joke, setJoke] = useState('');
   const [punchline, setPunchline] = useState('');
 
-    useEffect( ()  => {
-    async function fetchData(){
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
       await axios.get(`https://official-joke-api.appspot.com/random_joke`).then(response => {
         console.log(response.data.setup);
         console.log(response.data.punchline);
         setJoke(response.data.setup);
         setPunchline(response.data.punchline);
-      })
-    }fetchData();
-  }, [])
+      })} catch (error) {
+      console.error(error);
+    }
+  };
+
   
   return (
     <div className='container slider-box'>

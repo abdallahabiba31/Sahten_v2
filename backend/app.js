@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Mock data for our "database"
+// Mock data
 let items = [
     { id: 1, name: 'Ingredient 1' },
     { id: 2, name: 'Ingredient 2' },
@@ -26,14 +26,13 @@ let items = [
 
 // Mock user data
 let users = [
-    { id: 1, username: 'user1', password: 'pass1' },
-    { id: 2, username: 'user2', password: 'pass2' },
-    // add more users as needed
+    { id: 1, username: 'user1', password: 'password' },
+    { id: 2, username: 'user2', password: 'password' },
 ];
 
 
 //async?
-app.get('/items', function (req, res) {
+app.get('/items', async function (req, res) {
     console.log('Received GET request to /items');  // This will print to the terminal
     console.log(items);
     res.json(items);
@@ -41,61 +40,86 @@ app.get('/items', function (req, res) {
 });
 
 app.post('/items', async (req, res) => {
-    const newItem = req.body;
-    newItem.id = ID;
-    ID += 1;
-    items.push(newItem);
-    console.log(items);
-    res.status(201).json(newItem);
+    try {
+        const newItem = req.body;
+        newItem.id = ID;
+        ID += 1;
+        items.push(newItem);
+        console.log(items);
+        res.status(201).json(newItem);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 app.put('/items/:id', async (req, res) => {
-    const id = parseInt(req.params.id);
-    const updateIndex = items.findIndex(item => item.id === id);
-    items[updateIndex] = req.body;
-    res.json(items[updateIndex]);
+    try {
+        const id = parseInt(req.params.id);
+        const updateIndex = items.findIndex(item => item.id === id);
+        items[updateIndex] = req.body;
+        res.json(items[updateIndex]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 app.delete('/items/:id', async (req, res) => {
-    const id = parseInt(req.params.id);
-    console.log(`Error: ${id}`);
-    items = items.filter(item => item.id !== id);
-    res.json({ message: 'Item deleted' });
+    try {
+        const id = parseInt(req.params.id);
+        console.log(`Error: ${id}`);
+        items = items.filter(item => item.id !== id);
+        res.json({ message: 'Item deleted' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 let nextUserId = 5;
 
 
 app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+    try {
+        const { username, password } = req.body;
 
-    const user = users.find(user => user.username === username && user.password === password);
-    console.log("USER " + user + " " + username + " " + password)
+        const user = users.find(user => user.username === username && user.password === password);
+        console.log("USER " + user + " " + username + " " + password)
 
-    if (user) {
-        const accessToken = jwt.sign({ id: user.id, name: user.username }, 'your_secret_key');
-        console.log(accessToken);
-        res.status(200).json({ message: "Welcome back", accessToken: accessToken })
-    } else {
-        // User is not found, return an error message
-        res.status(400).json({ message: 'Username or password is incorrect' });
+        if (user) {
+            const accessToken = jwt.sign({ id: user.id, name: user.username }, 'your_secret_key');
+            console.log(accessToken);
+            res.status(200).json({ message: "Welcome back", accessToken: accessToken })
+        } else {
+            // User is not found, return an error message
+            res.status(400).json({ message: 'Username or password is incorrect' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
 app.post("/register", async (req, res) => {
-    const { username, password } = req.body;
-    const userId = nextUserId++;
-    const newUser = {id: userId, username: username, password: password }
+    try {
+        const { username, password } = req.body;
+        const userId = nextUserId++;
+        const newUser = { id: userId, username: username, password: password }
 
 
-    console.log(userId, username, password)
-    users.push(newUser);
-    console.log(users);
+        console.log(userId, username, password)
+        users.push(newUser);
+        console.log(users);
 
-    const accessToken = jwt.sign({ id: newUser.id, name: newUser.username }, 'your_secret_key')
-    console.log(accessToken);
-    res.status(201).json({ accessToken: accessToken })
-    //res.status(201).json(newUser);
+        const accessToken = jwt.sign({ id: newUser.id, name: newUser.username }, 'your_secret_key')
+        console.log(accessToken);
+        res.status(201).json({ accessToken: accessToken })
+        //res.status(201).json(newUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 
