@@ -14,6 +14,11 @@ function LogIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (password.length < 6) {
+      setErrorMessage('Password or username is incorrect.');
+      return;
+    }
+
     await axios.post('http://localhost:5000/login', {
       username,
       password,

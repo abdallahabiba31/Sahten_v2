@@ -83,3 +83,9 @@ h1{
 	background: linear-gradient(to right, #95b55d, #84bd4a);
 	transform: translate(-50%, -50%);
 }
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
