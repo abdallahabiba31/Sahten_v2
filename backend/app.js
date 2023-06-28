@@ -9,11 +9,21 @@ var jwt = require('jsonwebtoken');
 var app = express();
 var ID = 3;
 
+//CORS-Paket wird normalerweise im Backend verwendet, um Zugriff auf Ressourcen von anderen
+//Domänen zu erlauben
+//ermöglicht die Konfiguration der HTTP-Header, um bestimmte Anfragen 
+//von bestimmten Ursprüngen zu erlauben
+
+//Middleware
 app.use(cors());
+//protokolliert anfragen- und antwortinformationen 
 app.use(logger('dev'));
+//analysiert inhalt von json anfragen
 app.use(express.json());
+//parsen von url-kodierten daten
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+//stellt statische dateien, wie html, css, ... bereit
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Mock data

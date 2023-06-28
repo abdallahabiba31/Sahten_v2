@@ -29,6 +29,8 @@ function ShoppingList() {
       await axios.post('http://localhost:5000/items', { name: itemName })
         .then(response => {
           // The response contains the item as it was saved
+          //...items erstellt copy des aktuellen Arrays
+          //response.data --> fügen die neuen elemente zur Kopie hinzu
           setItems([...items, response.data]);
         })
         .catch(error => console.error(`Error: ${error}`));//eigentlich benötige ich das untere catch nicht
