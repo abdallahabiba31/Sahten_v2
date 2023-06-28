@@ -1,6 +1,5 @@
-import axios from "axios";
 import logo from "./../../Assets/logo2.png";
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import "./Navbar.css";
 

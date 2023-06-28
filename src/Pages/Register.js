@@ -30,7 +30,6 @@ function Register() {
           }
         })
         .catch(error => {
-          // Here you could check for the specific error message and set it
           if (error.response.status === 400) {
             setErrorMessage('Incorrect username or password');
           } else {

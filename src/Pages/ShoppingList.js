@@ -6,9 +6,8 @@ import "../style/ShoppingList.css"
 
 function ShoppingList() {
   const [items, setItems] = useState([]);
-  const [itemName, setItemName] = useState(''); // itemName is defined here
+  const [itemName, setItemName] = useState(''); 
   const [updatedName, setUpdatedName] = useState('');
-  const [accessToken, setAccessToken] = useState('');
 
 
   useEffect(() => {
@@ -17,7 +16,7 @@ function ShoppingList() {
 
   const fetchData = async () => {
     try {
-      await axios.get('http://localhost:5000/items') // Ändern Sie die URL entsprechend Ihren Backend-Endpunkten
+      await axios.get('http://localhost:5000/items') 
         .then(response => setItems(response.data));
     } catch (error) {
       console.error(error);

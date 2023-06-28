@@ -1,8 +1,6 @@
 import React from 'react';
 import "./Card.css";
 
-// import recipe from "./../../Assets/recipe-image-temp.jpg";
-
 const Card = (props) => {
 
   const detail = (recipe) => {

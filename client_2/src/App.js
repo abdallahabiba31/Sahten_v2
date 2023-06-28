@@ -13,7 +13,7 @@ function App() {
 
   const fetchData = async () => {
     try {
-      await axios.get('http://localhost:5000/items') // Ändern Sie die URL entsprechend Ihren Backend-Endpunkten
+      await axios.get('http://localhost:5000/items')
         .then(response => setItems(response.data))
         .catch(error => console.error(`Error: ${error}`));
     } catch (error) {

@@ -4,13 +4,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var jwt = require('jsonwebtoken');
-//const { Session } = require('inspector');
 
 // Create a new Express application
 var app = express();
 var ID = 3;
 
-// Use middleware
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
@@ -31,9 +29,8 @@ let users = [
 ];
 
 
-//async?
 app.get('/items', async function (req, res) {
-    console.log('Received GET request to /items');  // This will print to the terminal
+    console.log('Received GET request to /items');
     console.log(items);
     res.json(items);
     //res.send();
